@@ -1,0 +1,2924 @@
+{
+  "version": "1.20",
+  "settings": {
+    "defaultLanguage": "en",
+    "languages": [
+      "en"
+    ],
+    "description": "",
+    "id": "6a995e96-17d0-4784-933c-f90a115db6c9",
+    "inactivityTimeout": 30,
+    "botVariables": [],
+    "userVariables": [],
+    "nodeRepetitionLimit": 3,
+    "configVariables": {},
+    "cognitiveConfigs": {
+      "openAi": {}
+    },
+    "useLlmz": true,
+    "defaultBestModel": "openai__gpt-4.1-2025-04-14",
+    "defaultFastModel": "openai__gpt-4.1-mini-2025-04-14",
+    "useClient": true,
+    "llmzVersion": "01-Oct-2024",
+    "autonomousModel": "best-model",
+    "fallbackModel": "google-ai__models/gemini-2.0-flash",
+    "usePushToGit": false,
+    "useCognitiveV2": true,
+    "disablePublishButton": false,
+    "typingIndicatorDisabledByDefault": false
+  },
+  "flows": [
+    {
+      "id": "wf-error",
+      "name": "Error",
+      "startNode": "nd-98dc0bcc87",
+      "variables": [],
+      "links": [
+        {
+          "id": "edg-1cb5862648",
+          "source": "nd-98dc0bcc87",
+          "sourcePort": "trs-02c7129430",
+          "target": "nd-58fca56e01"
+        },
+        {
+          "id": "edg-1c28c96d6a",
+          "source": "nd-58fca56e01",
+          "sourcePort": "nd-58fca56e01",
+          "target": "nd-e05f59dd66"
+        }
+      ],
+      "nodes": [
+        {
+          "comment": "<p><span style=\"font-size: 18px\"><strong>⛔️ When something goes wrong</strong></span></p><p><br>This workflow is executed when there's an <strong>unexpected error</strong> in one of the other workflows.</p><p></p><p>You can use this to inform the user of the situation before ending the conversation.</p>",
+          "type": "comment",
+          "id": "nd-8ff3d7d295",
+          "name": "Comment1",
+          "deletable": true,
+          "instructions": [],
+          "height": 148,
+          "width": 401,
+          "x": 90,
+          "y": -45
+        },
+        {
+          "instructions": [
+            {
+              "id": "ins-2762f70004",
+              "type": "content",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Ocorreu algum erro!",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-58fca56e01",
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": "nd-e05f59dd66"
+          },
+          "type": "standard",
+          "id": "nd-58fca56e01",
+          "name": "Handler",
+          "deletable": true,
+          "x": 450,
+          "y": 120
+        },
+        {
+          "id": "nd-98dc0bcc87",
+          "name": "On_Error",
+          "type": "entry",
+          "deletable": false,
+          "variables": [],
+          "instructions": [
+            {
+              "id": "trs-02c7129430",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "nd-58fca56e01"
+              },
+              "transitions": [],
+              "nodeId": "nd-98dc0bcc87"
+            }
+          ],
+          "x": 90,
+          "y": 120,
+          "defaultTransition": {
+            "targetNodeId": null
+          }
+        },
+        {
+          "id": "nd-e05f59dd66",
+          "name": "End",
+          "type": "end",
+          "variables": [],
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-945140a646",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "END"
+              },
+              "transitions": [],
+              "nodeId": "nd-e05f59dd66"
+            }
+          ],
+          "x": 810,
+          "y": 120
+        }
+      ]
+    },
+    {
+      "id": "wf-timeout",
+      "name": "Timeout",
+      "startNode": "nd-9f7f3268ac",
+      "variables": [],
+      "links": [
+        {
+          "id": "edg-b0d2adcd13",
+          "source": "nd-e6c012a652",
+          "sourcePort": "nd-e6c012a652",
+          "target": "nd-199fdcf439"
+        },
+        {
+          "id": "edg-6d17a0591b",
+          "source": "nd-9f7f3268ac",
+          "sourcePort": "trs-0c7a9a0003",
+          "target": "nd-e6c012a652"
+        }
+      ],
+      "nodes": [
+        {
+          "instructions": [],
+          "defaultTransition": {
+            "targetNodeId": "nd-199fdcf439"
+          },
+          "type": "standard",
+          "id": "nd-e6c012a652",
+          "name": "Handler",
+          "deletable": true,
+          "x": 435,
+          "y": 105
+        },
+        {
+          "comment": "<p><span style=\"font-size: 18px\"><strong>⌛️ When conversation times out</strong></span></p><p><br>This workflow is executed when the conversation <strong>times out</strong> before it had time to flow to an <strong>End Node</strong>.</p><p></p><p>The <strong>Timeout Delay</strong> is configurable in the <strong>Chatbot Settings.</strong></p><p></p><p>You can use this to inform the user of the situation before ending the conversation.</p>",
+          "type": "comment",
+          "id": "nd-441efa6c42",
+          "name": "Comment1",
+          "deletable": true,
+          "instructions": [],
+          "height": 173,
+          "width": 401,
+          "x": 105,
+          "y": -90
+        },
+        {
+          "id": "nd-9f7f3268ac",
+          "name": "On_Timeout",
+          "type": "entry",
+          "deletable": false,
+          "variables": [],
+          "instructions": [
+            {
+              "id": "trs-0c7a9a0003",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "nd-e6c012a652"
+              },
+              "transitions": [],
+              "nodeId": "nd-9f7f3268ac"
+            }
+          ],
+          "x": 100,
+          "y": 100,
+          "defaultTransition": {
+            "targetNodeId": null
+          }
+        },
+        {
+          "id": "nd-199fdcf439",
+          "name": "End",
+          "type": "end",
+          "variables": [],
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-bf76943d55",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "END"
+              },
+              "transitions": [],
+              "nodeId": "nd-199fdcf439"
+            }
+          ],
+          "x": 795,
+          "y": 105
+        }
+      ]
+    },
+    {
+      "id": "wf-conversation-end",
+      "name": "Conversation End",
+      "startNode": "nd-c0d3bd2c92",
+      "variables": [],
+      "links": [],
+      "nodes": [
+        {
+          "instructions": [
+            {
+              "id": "ins-cabded6d3a",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Muito obrigado por entrar em contato! \nEspero te ver novamente!",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-2db7499cc6",
+              "transitions": []
+            },
+            {
+              "id": "ins-3217f04849",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-2db7499cc6",
+              "description": "",
+              "destination": {
+                "node": "nd-d0c2a6be81"
+              },
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "type": "standard",
+          "id": "nd-2db7499cc6",
+          "name": "Handler",
+          "deletable": true,
+          "x": 420,
+          "y": 105
+        },
+        {
+          "id": "nd-c0d3bd2c92",
+          "name": "On_Explicit_Ending",
+          "type": "entry",
+          "deletable": false,
+          "variables": [],
+          "instructions": [
+            {
+              "id": "trs-92c6f93b0c",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "nd-2db7499cc6"
+              },
+              "transitions": [],
+              "nodeId": "nd-c0d3bd2c92"
+            }
+          ],
+          "x": 100,
+          "y": 100,
+          "defaultTransition": {
+            "targetNodeId": null
+          }
+        },
+        {
+          "id": "nd-d0c2a6be81",
+          "name": "End",
+          "type": "end",
+          "variables": [],
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-7004dbb2b6",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "END"
+              },
+              "transitions": [],
+              "nodeId": "nd-d0c2a6be81"
+            }
+          ],
+          "x": 780,
+          "y": 105
+        }
+      ]
+    },
+    {
+      "topicId": "tpc-global",
+      "id": "wf-main",
+      "name": "Main",
+      "startNode": "nd-2bb9db230d",
+      "variables": [
+        {
+          "id": "var-064f54644d",
+          "name": "Num",
+          "type": "number",
+          "description": "",
+          "scope": "workflow"
+        }
+      ],
+      "links": [],
+      "nodes": [
+        {
+          "id": "nd-2bb9db230d",
+          "name": "Start",
+          "type": "start",
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-8b0779edc5",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "nd-bee0283deb"
+              },
+              "transitions": [],
+              "nodeId": "nd-2bb9db230d"
+            }
+          ],
+          "x": -105,
+          "y": -180,
+          "kbPriority": {
+            "enabled": false,
+            "searchScope": "specific",
+            "kbs": []
+          }
+        },
+        {
+          "id": "nd-80ac4ff158",
+          "name": "End",
+          "type": "end",
+          "deletable": false,
+          "instructions": [
+            {
+              "id": "trs-0260f5e672",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "destination": {
+                "node": "END"
+              },
+              "transitions": [],
+              "nodeId": "nd-80ac4ff158"
+            }
+          ],
+          "x": 1635,
+          "y": 135
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 60,
+          "y": -210,
+          "instructions": [
+            {
+              "id": "ins-ff3b929445",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Olá, seja Bem-Vindo! Sou seu assistente de peças automotivas. \nVamos encontrar a peça ideal para o seu carro!",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-bee0283deb",
+              "transitions": []
+            },
+            {
+              "id": "ins-95756b8031",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-bee0283deb",
+              "description": "",
+              "destination": {},
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": "nd-67410a5636"
+          },
+          "id": "nd-bee0283deb",
+          "name": "greet_user"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 75,
+          "y": 45,
+          "instructions": [
+            {
+              "id": "ins-fa346125fe",
+              "category": "Capture Information",
+              "type": "capture",
+              "entityId": "prompts://SingleChoice/v1",
+              "entityName": "Single Choice",
+              "label": "Single Choice",
+              "kbPriority": {
+                "enabled": true,
+                "searchScope": "all",
+                "kbs": []
+              },
+              "nodeId": "nd-67410a5636",
+              "question": {
+                "staticValue": "",
+                "dynamicValue": "Qual a marca do seu carro?",
+                "valueType": "dynamic"
+              },
+              "validation": {
+                "validators": []
+              },
+              "choice": {
+                "options": {
+                  "valueType": "static",
+                  "staticValue": [
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "1. Fiat"
+                      },
+                      "value": "1. Fiat",
+                      "enabled": true
+                    },
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "2. Chevrolet"
+                      },
+                      "value": "2. Chevrolet",
+                      "enabled": true
+                    }
+                  ],
+                  "dynamicValue": ""
+                }
+              },
+              "retry": {
+                "maxRetries": 2,
+                "retryMessage": {
+                  "staticValue": "The response could not be captured. Please try again.",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                }
+              },
+              "cancellation": {
+                "cancellable": true,
+                "confirmCancel": true,
+                "confirmCancelMessage": {
+                  "staticValue": "",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                }
+              },
+              "handleFailure": false,
+              "historyLookback": 0,
+              "skipIfAlreadyFilled": false,
+              "transitions": [
+                {
+                  "id": "trs-4723e3dacd",
+                  "type": "transition",
+                  "label": "1. Fiat",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=1. Fiat"
+                  },
+                  "destination": {
+                    "node": "nd-ac52d85e07"
+                  }
+                },
+                {
+                  "id": "trs-6707bf12b2",
+                  "type": "transition",
+                  "label": "2. Chevrolet",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=2. Chevrolet"
+                  },
+                  "destination": {
+                    "node": "nd-a271025218"
+                  }
+                }
+              ],
+              "prompt": {
+                "messages": [
+                  {
+                    "role": "system",
+                    "content": "You are ExtractGPT and your only goal is to generate useful content in JSON format for developers to parse and use. You don't know any other language than JSON."
+                  },
+                  {
+                    "role": "user",
+                    "content": "```typescript\n/** The user answer to the question \"Which one would you like? Choices: [ 1) Red Apple, 2) Yellow Apple, 3) Dark Banana ]\" */\ninterface Output = { choice: {{CHOICES_TYPINGS}} }\n```\n\nHere is a conversation between me and a user. Transcript:\n\"\"\"\n(...)\nagent: Which one would you like? Choices: [ 1) Red Apple, 2) Yellow Apple, 3) Dark Banana ]\nuser: I will go with the second one please\n\"\"\""
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "{\"choice\":\"Yellow Apple\"}"
+                  },
+                  {
+                    "role": "user",
+                    "content": "The previous transcripts were just examples, don't consider those as valid transcripts for this below task.\n\nThe current Date is {{CURRENT_DATE_TIME}}.\n\nAt this point of the conversation, I need require the user to fill the output in following JSON output to complete the task.\nIf more than one property, try to extract each of them the best you can.\n\n```typescript\n/** The user answer to the question \"{{QUESTION}}\" */\ninterface Output = { choice: {{CHOICES_TYPINGS}} }\n```\n\nHere is a conversation between me and a user. Transcript:\n\"\"\"\n(...)\n{{TRANSCRIPT}}\n\"\"\"\n\nIn the last user message, here are the entities found:\n\"\"\"\n{{ENTITIES_IDENTIFIED}}\n\"\"\"\n\nI need you to extract from the conversation transcript above the values the user has provided.\nIf the user has not provided the information I need, I need you to set the value of the missing answer properties to null.\nHave some tolerance to typos and variations in how the user selects from the possible values.\nUse your best judgement to provide the most accurate answer. In general, you can assume the user is cooperative and provides the information asked.\n\n\n\nNow, please reply to me with the above JSON output and nothing but JSON.\nYou should not explain your answer and should not talk back to me. Just JSON."
+                  }
+                ],
+                "model": "fast-model",
+                "temperature": 0
+              }
+            },
+            {
+              "id": "ins-df8c7669d0",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-67410a5636",
+              "description": "",
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-67410a5636",
+          "name": "capture_information"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 420,
+          "y": -225,
+          "instructions": [
+            {
+              "id": "ins-67a4bae453",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Ótima escolha! Para Fiat, temos o modelo Uno.",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-ac52d85e07",
+              "transitions": []
+            },
+            {
+              "id": "ins-35dda96bd8",
+              "category": "Capture Information",
+              "type": "capture",
+              "entityId": "prompts://SingleChoice/v1",
+              "entityName": "Single Choice",
+              "label": "Single Choice",
+              "kbPriority": {
+                "enabled": true,
+                "searchScope": "all",
+                "kbs": []
+              },
+              "nodeId": "nd-ac52d85e07",
+              "question": {
+                "staticValue": "",
+                "dynamicValue": "Qual o ano do seu Fiat Uno?",
+                "valueType": "dynamic"
+              },
+              "validation": {
+                "validators": []
+              },
+              "choice": {
+                "options": {
+                  "valueType": "static",
+                  "staticValue": [
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "1. 2005"
+                      },
+                      "value": "1. 2005",
+                      "enabled": true
+                    },
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "2. 2015"
+                      },
+                      "value": "2. 2015",
+                      "enabled": true
+                    }
+                  ],
+                  "dynamicValue": ""
+                }
+              },
+              "retry": {
+                "maxRetries": 2,
+                "retryMessage": {
+                  "staticValue": "The response could not be captured. Please try again.",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                }
+              },
+              "cancellation": {
+                "cancellable": true,
+                "confirmCancel": true,
+                "confirmCancelMessage": {
+                  "staticValue": "",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                }
+              },
+              "handleFailure": false,
+              "historyLookback": 0,
+              "skipIfAlreadyFilled": false,
+              "transitions": [
+                {
+                  "id": "trs-c17125b54f",
+                  "type": "transition",
+                  "label": "1. 2005",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=1. 2005"
+                  },
+                  "destination": {
+                    "node": "nd-7f995b3a9c"
+                  }
+                },
+                {
+                  "id": "trs-55e5db97a3",
+                  "type": "transition",
+                  "label": "2. 2015",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=2. 2015"
+                  },
+                  "destination": {
+                    "node": "nd-6299688c7a"
+                  }
+                }
+              ],
+              "prompt": {
+                "messages": [
+                  {
+                    "role": "system",
+                    "content": "You are ExtractGPT and your only goal is to generate useful content in JSON format for developers to parse and use. You don't know any other language than JSON."
+                  },
+                  {
+                    "role": "user",
+                    "content": "```typescript\n/** The user answer to the question \"Which one would you like? Choices: [ 1) Red Apple, 2) Yellow Apple, 3) Dark Banana ]\" */\ninterface Output = { choice: {{CHOICES_TYPINGS}} }\n```\n\nHere is a conversation between me and a user. Transcript:\n\"\"\"\n(...)\nagent: Which one would you like? Choices: [ 1) Red Apple, 2) Yellow Apple, 3) Dark Banana ]\nuser: I will go with the second one please\n\"\"\""
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "{\"choice\":\"Yellow Apple\"}"
+                  },
+                  {
+                    "role": "user",
+                    "content": "The previous transcripts were just examples, don't consider those as valid transcripts for this below task.\n\nThe current Date is {{CURRENT_DATE_TIME}}.\n\nAt this point of the conversation, I need require the user to fill the output in following JSON output to complete the task.\nIf more than one property, try to extract each of them the best you can.\n\n```typescript\n/** The user answer to the question \"{{QUESTION}}\" */\ninterface Output = { choice: {{CHOICES_TYPINGS}} }\n```\n\nHere is a conversation between me and a user. Transcript:\n\"\"\"\n(...)\n{{TRANSCRIPT}}\n\"\"\"\n\nIn the last user message, here are the entities found:\n\"\"\"\n{{ENTITIES_IDENTIFIED}}\n\"\"\"\n\nI need you to extract from the conversation transcript above the values the user has provided.\nIf the user has not provided the information I need, I need you to set the value of the missing answer properties to null.\nHave some tolerance to typos and variations in how the user selects from the possible values.\nUse your best judgement to provide the most accurate answer. In general, you can assume the user is cooperative and provides the information asked.\n\n\n\nNow, please reply to me with the above JSON output and nothing but JSON.\nYou should not explain your answer and should not talk back to me. Just JSON."
+                  }
+                ],
+                "model": "fast-model",
+                "temperature": 0
+              }
+            },
+            {
+              "id": "ins-3a092dbf57",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-ac52d85e07",
+              "description": "",
+              "destination": {},
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-ac52d85e07",
+          "name": "fiat_modelo"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 420,
+          "y": 75,
+          "instructions": [
+            {
+              "id": "ins-75d087192d",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Ótima escolha! Para Chevrolet, temos o modelo Onix.",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-a271025218",
+              "transitions": []
+            },
+            {
+              "id": "ins-00fcb07a29",
+              "category": "Capture Information",
+              "type": "capture",
+              "entityId": "prompts://SingleChoice/v1",
+              "entityName": "Single Choice",
+              "label": "Single Choice",
+              "kbPriority": {
+                "enabled": true,
+                "searchScope": "all",
+                "kbs": []
+              },
+              "nodeId": "nd-a271025218",
+              "question": {
+                "valueType": "dynamic",
+                "dynamicValue": "Qual o ano do seu Chevrolet Onix?",
+                "staticValue": ""
+              },
+              "validation": {
+                "validators": []
+              },
+              "choice": {
+                "options": {
+                  "valueType": "static",
+                  "staticValue": [
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "1. 2018"
+                      },
+                      "value": "1. 2018",
+                      "enabled": true
+                    },
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "2. 2023"
+                      },
+                      "value": "2. 2023",
+                      "enabled": true
+                    }
+                  ],
+                  "dynamicValue": ""
+                }
+              },
+              "retry": {
+                "maxRetries": 2,
+                "retryMessage": {
+                  "staticValue": "The response could not be captured. Please try again.",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                }
+              },
+              "cancellation": {
+                "cancellable": true,
+                "confirmCancel": true,
+                "confirmCancelMessage": {
+                  "staticValue": "",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                }
+              },
+              "handleFailure": false,
+              "historyLookback": 0,
+              "skipIfAlreadyFilled": false,
+              "transitions": [
+                {
+                  "id": "trs-dcc34c6eaa",
+                  "type": "transition",
+                  "label": "1. 2018",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=1. 2018"
+                  },
+                  "destination": {
+                    "node": "nd-36902329a2"
+                  }
+                },
+                {
+                  "id": "trs-837ef76711",
+                  "type": "transition",
+                  "label": "2. 2023",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=2. 2023"
+                  },
+                  "destination": {
+                    "node": "nd-2bcda7c372"
+                  }
+                }
+              ],
+              "prompt": {
+                "messages": [
+                  {
+                    "role": "system",
+                    "content": "You are ExtractGPT and your only goal is to generate useful content in JSON format for developers to parse and use. You don't know any other language than JSON."
+                  },
+                  {
+                    "role": "user",
+                    "content": "```typescript\n/** The user answer to the question \"Which one would you like? Choices: [ 1) Red Apple, 2) Yellow Apple, 3) Dark Banana ]\" */\ninterface Output = { choice: {{CHOICES_TYPINGS}} }\n```\n\nHere is a conversation between me and a user. Transcript:\n\"\"\"\n(...)\nagent: Which one would you like? Choices: [ 1) Red Apple, 2) Yellow Apple, 3) Dark Banana ]\nuser: I will go with the second one please\n\"\"\""
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "{\"choice\":\"Yellow Apple\"}"
+                  },
+                  {
+                    "role": "user",
+                    "content": "The previous transcripts were just examples, don't consider those as valid transcripts for this below task.\n\nThe current Date is {{CURRENT_DATE_TIME}}.\n\nAt this point of the conversation, I need require the user to fill the output in following JSON output to complete the task.\nIf more than one property, try to extract each of them the best you can.\n\n```typescript\n/** The user answer to the question \"{{QUESTION}}\" */\ninterface Output = { choice: {{CHOICES_TYPINGS}} }\n```\n\nHere is a conversation between me and a user. Transcript:\n\"\"\"\n(...)\n{{TRANSCRIPT}}\n\"\"\"\n\nIn the last user message, here are the entities found:\n\"\"\"\n{{ENTITIES_IDENTIFIED}}\n\"\"\"\n\nI need you to extract from the conversation transcript above the values the user has provided.\nIf the user has not provided the information I need, I need you to set the value of the missing answer properties to null.\nHave some tolerance to typos and variations in how the user selects from the possible values.\nUse your best judgement to provide the most accurate answer. In general, you can assume the user is cooperative and provides the information asked.\n\n\n\nNow, please reply to me with the above JSON output and nothing but JSON.\nYou should not explain your answer and should not talk back to me. Just JSON."
+                  }
+                ],
+                "model": "fast-model",
+                "temperature": 0
+              }
+            },
+            {
+              "id": "ins-dd869861c7",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-a271025218",
+              "description": "",
+              "destination": {},
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-a271025218",
+          "name": "chevrolet_modelo"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 780,
+          "y": -450,
+          "instructions": [
+            {
+              "id": "ins-7c4c0328df",
+              "category": "Capture Information",
+              "type": "capture",
+              "entityId": "prompts://SingleChoice/v1",
+              "entityName": "Single Choice",
+              "label": "Single Choice",
+              "kbPriority": {
+                "enabled": true,
+                "searchScope": "all",
+                "kbs": []
+              },
+              "nodeId": "nd-7f995b3a9c",
+              "question": {
+                "valueType": "dynamic",
+                "dynamicValue": "Fiat Uno 2005 — Qual peça você precisa?",
+                "staticValue": ""
+              },
+              "validation": {
+                "validators": []
+              },
+              "choice": {
+                "options": {
+                  "valueType": "static",
+                  "staticValue": [
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "1. Pastilha de Freio"
+                      },
+                      "value": "1. Pastilha de Freio",
+                      "enabled": true
+                    },
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "2. Filtro de Óleo"
+                      },
+                      "value": "2. Filtro de Óleo",
+                      "enabled": true
+                    },
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "3. Vela de Ignição"
+                      },
+                      "value": "3. Vela de Ignição",
+                      "enabled": true
+                    }
+                  ],
+                  "dynamicValue": ""
+                }
+              },
+              "retry": {
+                "maxRetries": 2,
+                "retryMessage": {
+                  "staticValue": "The response could not be captured. Please try again.",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                }
+              },
+              "cancellation": {
+                "cancellable": true,
+                "confirmCancel": true,
+                "confirmCancelMessage": {
+                  "staticValue": "",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                }
+              },
+              "handleFailure": false,
+              "historyLookback": 0,
+              "skipIfAlreadyFilled": false,
+              "transitions": [
+                {
+                  "id": "trs-6249e7b82b",
+                  "type": "transition",
+                  "label": "1. Pastilha de Freio",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=1. Pastilha de Freio"
+                  },
+                  "destination": {
+                    "node": "nd-5f4d3efc55"
+                  }
+                },
+                {
+                  "id": "trs-98b1835471",
+                  "type": "transition",
+                  "label": "2. Filtro de Óleo",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=2. Filtro de Óleo"
+                  },
+                  "destination": {
+                    "node": "nd-7c7fbbcec2"
+                  }
+                },
+                {
+                  "id": "trs-b0896ecf08",
+                  "type": "transition",
+                  "label": "3. Vela de Ignição",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=3. Vela de Ignição"
+                  },
+                  "destination": {
+                    "node": "nd-69ed36b5bb"
+                  }
+                }
+              ],
+              "prompt": {
+                "messages": [
+                  {
+                    "role": "system",
+                    "content": "You are ExtractGPT and your only goal is to generate useful content in JSON format for developers to parse and use. You don't know any other language than JSON."
+                  },
+                  {
+                    "role": "user",
+                    "content": "```typescript\n/** The user answer to the question \"Which one would you like? Choices: [ 1) Red Apple, 2) Yellow Apple, 3) Dark Banana ]\" */\ninterface Output = { choice: {{CHOICES_TYPINGS}} }\n```\n\nHere is a conversation between me and a user. Transcript:\n\"\"\"\n(...)\nagent: Which one would you like? Choices: [ 1) Red Apple, 2) Yellow Apple, 3) Dark Banana ]\nuser: I will go with the second one please\n\"\"\""
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "{\"choice\":\"Yellow Apple\"}"
+                  },
+                  {
+                    "role": "user",
+                    "content": "The previous transcripts were just examples, don't consider those as valid transcripts for this below task.\n\nThe current Date is {{CURRENT_DATE_TIME}}.\n\nAt this point of the conversation, I need require the user to fill the output in following JSON output to complete the task.\nIf more than one property, try to extract each of them the best you can.\n\n```typescript\n/** The user answer to the question \"{{QUESTION}}\" */\ninterface Output = { choice: {{CHOICES_TYPINGS}} }\n```\n\nHere is a conversation between me and a user. Transcript:\n\"\"\"\n(...)\n{{TRANSCRIPT}}\n\"\"\"\n\nIn the last user message, here are the entities found:\n\"\"\"\n{{ENTITIES_IDENTIFIED}}\n\"\"\"\n\nI need you to extract from the conversation transcript above the values the user has provided.\nIf the user has not provided the information I need, I need you to set the value of the missing answer properties to null.\nHave some tolerance to typos and variations in how the user selects from the possible values.\nUse your best judgement to provide the most accurate answer. In general, you can assume the user is cooperative and provides the information asked.\n\n\n\nNow, please reply to me with the above JSON output and nothing but JSON.\nYou should not explain your answer and should not talk back to me. Just JSON."
+                  }
+                ],
+                "model": "fast-model",
+                "temperature": 0
+              }
+            },
+            {
+              "id": "ins-bc37ec0390",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-7f995b3a9c",
+              "description": "",
+              "destination": {},
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-7f995b3a9c",
+          "name": "fiat_uno_2005_pecas"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 780,
+          "y": -165,
+          "instructions": [
+            {
+              "id": "ins-8adcaaa4f6",
+              "category": "Capture Information",
+              "type": "capture",
+              "entityId": "prompts://SingleChoice/v1",
+              "entityName": "Single Choice",
+              "label": "Single Choice",
+              "kbPriority": {
+                "enabled": true,
+                "searchScope": "all",
+                "kbs": []
+              },
+              "nodeId": "nd-6299688c7a",
+              "question": {
+                "valueType": "dynamic",
+                "dynamicValue": "Fiat Uno 2015 — Qual peça você precisa?",
+                "staticValue": ""
+              },
+              "validation": {
+                "validators": []
+              },
+              "choice": {
+                "options": {
+                  "valueType": "static",
+                  "staticValue": [
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "1. Pastilha de Freio"
+                      },
+                      "value": "1. Pastilha de Freio",
+                      "enabled": true
+                    },
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "2. Filtro de Óleo"
+                      },
+                      "value": "2. Filtro de Óleo",
+                      "enabled": true
+                    },
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "3. Vela de Ignição"
+                      },
+                      "value": "3. Vela de Ignição",
+                      "enabled": true
+                    }
+                  ],
+                  "dynamicValue": ""
+                }
+              },
+              "retry": {
+                "maxRetries": 2,
+                "retryMessage": {
+                  "staticValue": "The response could not be captured. Please try again.",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                }
+              },
+              "cancellation": {
+                "cancellable": true,
+                "confirmCancel": true,
+                "confirmCancelMessage": {
+                  "staticValue": "",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                }
+              },
+              "handleFailure": false,
+              "historyLookback": 0,
+              "skipIfAlreadyFilled": false,
+              "transitions": [
+                {
+                  "id": "trs-5b7a05df19",
+                  "type": "transition",
+                  "label": "1. Pastilha de Freio",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=1. Pastilha de Freio"
+                  },
+                  "destination": {
+                    "node": "nd-3fcfa8228c"
+                  }
+                },
+                {
+                  "id": "trs-3832c23ede",
+                  "type": "transition",
+                  "label": "2. Filtro de Óleo",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=2. Filtro de Óleo"
+                  },
+                  "destination": {
+                    "node": "nd-92fe474a46"
+                  }
+                },
+                {
+                  "id": "trs-76c984120b",
+                  "type": "transition",
+                  "label": "3. Vela de Ignição",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=3. Vela de Ignição"
+                  },
+                  "destination": {
+                    "node": "nd-8e57b54e57"
+                  }
+                }
+              ],
+              "prompt": {
+                "messages": [
+                  {
+                    "role": "system",
+                    "content": "You are ExtractGPT and your only goal is to generate useful content in JSON format for developers to parse and use. You don't know any other language than JSON."
+                  },
+                  {
+                    "role": "user",
+                    "content": "```typescript\n/** The user answer to the question \"Which one would you like? Choices: [ 1) Red Apple, 2) Yellow Apple, 3) Dark Banana ]\" */\ninterface Output = { choice: {{CHOICES_TYPINGS}} }\n```\n\nHere is a conversation between me and a user. Transcript:\n\"\"\"\n(...)\nagent: Which one would you like? Choices: [ 1) Red Apple, 2) Yellow Apple, 3) Dark Banana ]\nuser: I will go with the second one please\n\"\"\""
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "{\"choice\":\"Yellow Apple\"}"
+                  },
+                  {
+                    "role": "user",
+                    "content": "The previous transcripts were just examples, don't consider those as valid transcripts for this below task.\n\nThe current Date is {{CURRENT_DATE_TIME}}.\n\nAt this point of the conversation, I need require the user to fill the output in following JSON output to complete the task.\nIf more than one property, try to extract each of them the best you can.\n\n```typescript\n/** The user answer to the question \"{{QUESTION}}\" */\ninterface Output = { choice: {{CHOICES_TYPINGS}} }\n```\n\nHere is a conversation between me and a user. Transcript:\n\"\"\"\n(...)\n{{TRANSCRIPT}}\n\"\"\"\n\nIn the last user message, here are the entities found:\n\"\"\"\n{{ENTITIES_IDENTIFIED}}\n\"\"\"\n\nI need you to extract from the conversation transcript above the values the user has provided.\nIf the user has not provided the information I need, I need you to set the value of the missing answer properties to null.\nHave some tolerance to typos and variations in how the user selects from the possible values.\nUse your best judgement to provide the most accurate answer. In general, you can assume the user is cooperative and provides the information asked.\n\n\n\nNow, please reply to me with the above JSON output and nothing but JSON.\nYou should not explain your answer and should not talk back to me. Just JSON."
+                  }
+                ],
+                "model": "fast-model",
+                "temperature": 0
+              }
+            },
+            {
+              "id": "ins-76efbd7989",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-6299688c7a",
+              "description": "",
+              "destination": {},
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-6299688c7a",
+          "name": "fiat_uno_2015_pecas"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 780,
+          "y": 120,
+          "instructions": [
+            {
+              "id": "ins-4b43117701",
+              "category": "Capture Information",
+              "type": "capture",
+              "entityId": "prompts://SingleChoice/v1",
+              "entityName": "Single Choice",
+              "label": "Single Choice",
+              "kbPriority": {
+                "enabled": true,
+                "searchScope": "all",
+                "kbs": []
+              },
+              "nodeId": "nd-36902329a2",
+              "question": {
+                "valueType": "dynamic",
+                "dynamicValue": "Chevrolet Onix 2018 — Qual peça você precisa?",
+                "staticValue": ""
+              },
+              "validation": {
+                "validators": []
+              },
+              "choice": {
+                "options": {
+                  "valueType": "static",
+                  "staticValue": [
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "1. Pastilha de Freio"
+                      },
+                      "value": "1. Pastilha de Freio",
+                      "enabled": true
+                    },
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "2. Filtro de Óleo"
+                      },
+                      "value": "2. Filtro de Óleo",
+                      "enabled": true
+                    },
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "3. Vela de Ignição"
+                      },
+                      "value": "3. Vela de Ignição",
+                      "enabled": true
+                    }
+                  ],
+                  "dynamicValue": ""
+                }
+              },
+              "retry": {
+                "maxRetries": 2,
+                "retryMessage": {
+                  "staticValue": "The response could not be captured. Please try again.",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                }
+              },
+              "cancellation": {
+                "cancellable": true,
+                "confirmCancel": true,
+                "confirmCancelMessage": {
+                  "staticValue": "",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                }
+              },
+              "handleFailure": false,
+              "historyLookback": 0,
+              "skipIfAlreadyFilled": false,
+              "transitions": [
+                {
+                  "id": "trs-356fab2ab2",
+                  "type": "transition",
+                  "label": "1. Pastilha de Freio",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=1. Pastilha de Freio"
+                  },
+                  "destination": {
+                    "node": "nd-e1a0230186"
+                  }
+                },
+                {
+                  "id": "trs-03d00bc94c",
+                  "type": "transition",
+                  "label": "2. Filtro de Óleo",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=2. Filtro de Óleo"
+                  },
+                  "destination": {
+                    "node": "nd-759ee998de"
+                  }
+                },
+                {
+                  "id": "trs-75b3de1a66",
+                  "type": "transition",
+                  "label": "3. Vela de Ignição",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=3. Vela de Ignição"
+                  },
+                  "destination": {
+                    "node": "nd-a183311c3d"
+                  }
+                }
+              ],
+              "prompt": {
+                "messages": [
+                  {
+                    "role": "system",
+                    "content": "You are ExtractGPT and your only goal is to generate useful content in JSON format for developers to parse and use. You don't know any other language than JSON."
+                  },
+                  {
+                    "role": "user",
+                    "content": "```typescript\n/** The user answer to the question \"Which one would you like? Choices: [ 1) Red Apple, 2) Yellow Apple, 3) Dark Banana ]\" */\ninterface Output = { choice: {{CHOICES_TYPINGS}} }\n```\n\nHere is a conversation between me and a user. Transcript:\n\"\"\"\n(...)\nagent: Which one would you like? Choices: [ 1) Red Apple, 2) Yellow Apple, 3) Dark Banana ]\nuser: I will go with the second one please\n\"\"\""
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "{\"choice\":\"Yellow Apple\"}"
+                  },
+                  {
+                    "role": "user",
+                    "content": "The previous transcripts were just examples, don't consider those as valid transcripts for this below task.\n\nThe current Date is {{CURRENT_DATE_TIME}}.\n\nAt this point of the conversation, I need require the user to fill the output in following JSON output to complete the task.\nIf more than one property, try to extract each of them the best you can.\n\n```typescript\n/** The user answer to the question \"{{QUESTION}}\" */\ninterface Output = { choice: {{CHOICES_TYPINGS}} }\n```\n\nHere is a conversation between me and a user. Transcript:\n\"\"\"\n(...)\n{{TRANSCRIPT}}\n\"\"\"\n\nIn the last user message, here are the entities found:\n\"\"\"\n{{ENTITIES_IDENTIFIED}}\n\"\"\"\n\nI need you to extract from the conversation transcript above the values the user has provided.\nIf the user has not provided the information I need, I need you to set the value of the missing answer properties to null.\nHave some tolerance to typos and variations in how the user selects from the possible values.\nUse your best judgement to provide the most accurate answer. In general, you can assume the user is cooperative and provides the information asked.\n\n\n\nNow, please reply to me with the above JSON output and nothing but JSON.\nYou should not explain your answer and should not talk back to me. Just JSON."
+                  }
+                ],
+                "model": "fast-model",
+                "temperature": 0
+              }
+            },
+            {
+              "id": "ins-d95bc37fb8",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-36902329a2",
+              "description": "",
+              "destination": {},
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-36902329a2",
+          "name": "chevrolet_onix_2018_pecas"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 780,
+          "y": 405,
+          "instructions": [
+            {
+              "id": "ins-4cd370dcbc",
+              "category": "Capture Information",
+              "type": "capture",
+              "entityId": "prompts://SingleChoice/v1",
+              "entityName": "Single Choice",
+              "label": "Single Choice",
+              "kbPriority": {
+                "enabled": true,
+                "searchScope": "all",
+                "kbs": []
+              },
+              "nodeId": "nd-2bcda7c372",
+              "question": {
+                "valueType": "dynamic",
+                "dynamicValue": "Chevrolet Onix 2023 — Qual peça você precisa?",
+                "staticValue": ""
+              },
+              "validation": {
+                "validators": []
+              },
+              "choice": {
+                "options": {
+                  "valueType": "static",
+                  "staticValue": [
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "1. Pastilha de Freio"
+                      },
+                      "value": "1. Pastilha de Freio",
+                      "enabled": true
+                    },
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "2. Filtro de Óleo"
+                      },
+                      "value": "2. Filtro de Óleo",
+                      "enabled": true
+                    },
+                    {
+                      "label": {
+                        "valueType": "dynamic",
+                        "dynamicValue": "3. Vela de Ignição"
+                      },
+                      "value": "3. Vela de Ignição",
+                      "enabled": true
+                    }
+                  ],
+                  "dynamicValue": ""
+                }
+              },
+              "retry": {
+                "maxRetries": 2,
+                "retryMessage": {
+                  "staticValue": "The response could not be captured. Please try again.",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                }
+              },
+              "cancellation": {
+                "cancellable": true,
+                "confirmCancel": true,
+                "confirmCancelMessage": {
+                  "staticValue": "",
+                  "dynamicValue": "",
+                  "valueType": "static"
+                }
+              },
+              "handleFailure": false,
+              "historyLookback": 0,
+              "skipIfAlreadyFilled": false,
+              "transitions": [
+                {
+                  "id": "trs-cfdc42aafb",
+                  "type": "transition",
+                  "label": "1. Pastilha de Freio",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=1. Pastilha de Freio"
+                  },
+                  "destination": {
+                    "node": "nd-183925ffdf"
+                  }
+                },
+                {
+                  "id": "trs-e1fee74623",
+                  "type": "transition",
+                  "label": "2. Filtro de Óleo",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=2. Filtro de Óleo"
+                  },
+                  "destination": {
+                    "node": "nd-d390889a59"
+                  }
+                },
+                {
+                  "id": "trs-5c2caa38c7",
+                  "type": "transition",
+                  "label": "3. Vela de Ignição",
+                  "condition": {
+                    "type": "expression",
+                    "payload": "__CHOICE=3. Vela de Ignição"
+                  },
+                  "destination": {
+                    "node": "nd-306a507012"
+                  }
+                }
+              ],
+              "prompt": {
+                "messages": [
+                  {
+                    "role": "system",
+                    "content": "You are ExtractGPT and your only goal is to generate useful content in JSON format for developers to parse and use. You don't know any other language than JSON."
+                  },
+                  {
+                    "role": "user",
+                    "content": "```typescript\n/** The user answer to the question \"Which one would you like? Choices: [ 1) Red Apple, 2) Yellow Apple, 3) Dark Banana ]\" */\ninterface Output = { choice: {{CHOICES_TYPINGS}} }\n```\n\nHere is a conversation between me and a user. Transcript:\n\"\"\"\n(...)\nagent: Which one would you like? Choices: [ 1) Red Apple, 2) Yellow Apple, 3) Dark Banana ]\nuser: I will go with the second one please\n\"\"\""
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "{\"choice\":\"Yellow Apple\"}"
+                  },
+                  {
+                    "role": "user",
+                    "content": "The previous transcripts were just examples, don't consider those as valid transcripts for this below task.\n\nThe current Date is {{CURRENT_DATE_TIME}}.\n\nAt this point of the conversation, I need require the user to fill the output in following JSON output to complete the task.\nIf more than one property, try to extract each of them the best you can.\n\n```typescript\n/** The user answer to the question \"{{QUESTION}}\" */\ninterface Output = { choice: {{CHOICES_TYPINGS}} }\n```\n\nHere is a conversation between me and a user. Transcript:\n\"\"\"\n(...)\n{{TRANSCRIPT}}\n\"\"\"\n\nIn the last user message, here are the entities found:\n\"\"\"\n{{ENTITIES_IDENTIFIED}}\n\"\"\"\n\nI need you to extract from the conversation transcript above the values the user has provided.\nIf the user has not provided the information I need, I need you to set the value of the missing answer properties to null.\nHave some tolerance to typos and variations in how the user selects from the possible values.\nUse your best judgement to provide the most accurate answer. In general, you can assume the user is cooperative and provides the information asked.\n\n\n\nNow, please reply to me with the above JSON output and nothing but JSON.\nYou should not explain your answer and should not talk back to me. Just JSON."
+                  }
+                ],
+                "model": "fast-model",
+                "temperature": 0
+              }
+            },
+            {
+              "id": "ins-e047ac5521",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-2bcda7c372",
+              "description": "",
+              "destination": {},
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-2bcda7c372",
+          "name": "chevrolet_onix_2023_pecas"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 1125,
+          "y": -510,
+          "instructions": [
+            {
+              "id": "ins-0ce302de5e",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Aqui está o link da Pastilha de Freio para Fiat Uno 2005:",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-5f4d3efc55",
+              "transitions": []
+            },
+            {
+              "id": "ins-8209e5149e",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "🔗 https://lista.mercadolivre.com.br/pastilha-de-freio-uno-2005",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-5f4d3efc55",
+              "transitions": []
+            },
+            {
+              "id": "ins-f8ad800b5a",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-5f4d3efc55",
+              "description": "",
+              "destination": {
+                "node": "nd-80ac4ff158"
+              },
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-5f4d3efc55",
+          "name": "fiat_uno_2005_link_pastilha"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 1125,
+          "y": -465,
+          "instructions": [
+            {
+              "id": "ins-6c5f203be1",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Aqui está o link da Filtro de Oleo para Fiat Uno 2005:",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-7c7fbbcec2",
+              "transitions": []
+            },
+            {
+              "id": "ins-b94b68d706",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "🔗 https://lista.mercadolivre.com.br/filtro-de-oleo-uno-2005",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-7c7fbbcec2",
+              "transitions": []
+            },
+            {
+              "id": "ins-464900b5da",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-7c7fbbcec2",
+              "description": "",
+              "destination": {
+                "node": "nd-80ac4ff158"
+              },
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-7c7fbbcec2",
+          "name": "fiat_uno_2005_link_oleo"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 1125,
+          "y": -435,
+          "instructions": [
+            {
+              "id": "ins-3ad661de95",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Aqui está o link da Vela de Ignição para Fiat Uno 2005:",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-69ed36b5bb",
+              "transitions": []
+            },
+            {
+              "id": "ins-4f8b29001e",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "🔗 https://lista.mercadolivre.com.br/vela-ignicao-uno-2005",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-69ed36b5bb",
+              "transitions": []
+            },
+            {
+              "id": "ins-1b0c392d7e",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-69ed36b5bb",
+              "description": "",
+              "destination": {
+                "node": "nd-80ac4ff158"
+              },
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-69ed36b5bb",
+          "name": "fiat_uno_2005_link_vela"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 1125,
+          "y": -195,
+          "instructions": [
+            {
+              "id": "ins-23301b46da",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Aqui está o link da Pastilha de Freio para Fiat Uno 2015:",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-3fcfa8228c",
+              "transitions": []
+            },
+            {
+              "id": "ins-598be1999a",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "🔗 https://lista.mercadolivre.com.br/pastilha-de-freio-uno-2015",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-3fcfa8228c",
+              "transitions": []
+            },
+            {
+              "id": "ins-0902557fcd",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-3fcfa8228c",
+              "description": "",
+              "destination": {
+                "node": "nd-80ac4ff158"
+              },
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-3fcfa8228c",
+          "name": "fiat_uno_2015_link_pastilha"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 1125,
+          "y": -135,
+          "instructions": [
+            {
+              "id": "ins-6446c646a0",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Aqui está o link do Filtro de Oleo para Fiat Uno 2015:",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-92fe474a46",
+              "transitions": []
+            },
+            {
+              "id": "ins-e4a155f7a2",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "🔗 https://lista.mercadolivre.com.br/filtro-de-oleo-uno-2015",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-92fe474a46",
+              "transitions": []
+            },
+            {
+              "id": "ins-2251bcd74b",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-92fe474a46",
+              "description": "",
+              "destination": {
+                "node": "nd-80ac4ff158"
+              },
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-92fe474a46",
+          "name": "fiat_uno_2015_link_oleo"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 1125,
+          "y": -90,
+          "instructions": [
+            {
+              "id": "ins-1fe9f2507f",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Aqui está o link da Vela de Ignição para Fiat Uno 2015:",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-8e57b54e57",
+              "transitions": []
+            },
+            {
+              "id": "ins-eed992e85d",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "🔗 https://lista.mercadolivre.com.br/vela-ignicao-uno-2015",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-8e57b54e57",
+              "transitions": []
+            },
+            {
+              "id": "ins-797399284e",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-8e57b54e57",
+              "description": "",
+              "destination": {
+                "node": "nd-80ac4ff158"
+              },
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-8e57b54e57",
+          "name": "fiat_uno_2015_link_vela"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 1125,
+          "y": 150,
+          "instructions": [
+            {
+              "id": "ins-49c7065e02",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Aqui está o link da Pastilha de Freio para Chevrolet Onix 2018:",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-e1a0230186",
+              "transitions": []
+            },
+            {
+              "id": "ins-b0a357cec2",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "🔗 https://lista.mercadolivre.com.br/pastilha-de-freio-onix-2018",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-e1a0230186",
+              "transitions": []
+            },
+            {
+              "id": "ins-85b98305f1",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-e1a0230186",
+              "description": "",
+              "destination": {
+                "node": "nd-80ac4ff158"
+              },
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-e1a0230186",
+          "name": "chevrolet_onix_2018_link_pastilha"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 1125,
+          "y": 195,
+          "instructions": [
+            {
+              "id": "ins-5293e08856",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Aqui está o link do Filtro de Oleo para Chevrolet Onix 2018:",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-759ee998de",
+              "transitions": []
+            },
+            {
+              "id": "ins-75e3a10047",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "🔗 https://lista.mercadolivre.com.br/pastilha-de-freio-onix-2018",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-759ee998de",
+              "transitions": []
+            },
+            {
+              "id": "ins-0cdee6180c",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-759ee998de",
+              "description": "",
+              "destination": {
+                "node": "nd-80ac4ff158"
+              },
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-759ee998de",
+          "name": "chevrolet_onix_2018_link_oleo"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 1125,
+          "y": 240,
+          "instructions": [
+            {
+              "id": "ins-4e9bf1b87f",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Aqui está o link da Vela de Ignição para Chevrolet Onix 2018:",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-a183311c3d",
+              "transitions": []
+            },
+            {
+              "id": "ins-d7f49294b9",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "🔗 https://lista.mercadolivre.com.br/pastilha-de-freio-onix-2018",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-a183311c3d",
+              "transitions": []
+            },
+            {
+              "id": "ins-4446328c64",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-a183311c3d",
+              "description": "",
+              "destination": {
+                "node": "nd-80ac4ff158"
+              },
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-a183311c3d",
+          "name": "chevrolet_onix_2018_link_vela"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 1125,
+          "y": 480,
+          "instructions": [
+            {
+              "id": "ins-127d70d33c",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Aqui está o link da Pastilha de Freio para Chevrolet Onix 2023:",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-183925ffdf",
+              "transitions": []
+            },
+            {
+              "id": "ins-da48ad07ce",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "🔗 https://lista.mercadolivre.com.br/pastilha-de-freio-onix-2018",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-183925ffdf",
+              "transitions": []
+            },
+            {
+              "id": "ins-4e6ec49e54",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-183925ffdf",
+              "description": "",
+              "destination": {
+                "node": "nd-80ac4ff158"
+              },
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-183925ffdf",
+          "name": "chevrolet_onix_2023_link_pastilha"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 1125,
+          "y": 525,
+          "instructions": [
+            {
+              "id": "ins-43a77aa1ae",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Aqui está o link do Filtro de Oleo para Chevrolet Onix 2023:",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-d390889a59",
+              "transitions": []
+            },
+            {
+              "id": "ins-e6adad4725",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "🔗 https://lista.mercadolivre.com.br/pastilha-de-freio-onix-2018",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-d390889a59",
+              "transitions": []
+            },
+            {
+              "id": "ins-ec2d31e869",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-d390889a59",
+              "description": "",
+              "destination": {
+                "node": "nd-80ac4ff158"
+              },
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-d390889a59",
+          "name": "chevrolet_onix_2023_link_oleo"
+        },
+        {
+          "type": "standard",
+          "deletable": true,
+          "x": 1125,
+          "y": 570,
+          "instructions": [
+            {
+              "id": "ins-3d13509725",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "Aqui está o link da Vela de Ignição para Chevrolet Onix 2023:",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-306a507012",
+              "transitions": []
+            },
+            {
+              "id": "ins-386d4f0abe",
+              "category": "Send Messages",
+              "type": "content",
+              "label": "text",
+              "content": {
+                "type": "text",
+                "text": {
+                  "valueType": "dynamic",
+                  "dynamicValue": "🔗 https://lista.mercadolivre.com.br/pastilha-de-freio-onix-2018",
+                  "staticValue": ""
+                },
+                "typing": {
+                  "valueType": "static",
+                  "staticValue": true
+                }
+              },
+              "nodeId": "nd-306a507012",
+              "transitions": []
+            },
+            {
+              "id": "ins-d92ec1754f",
+              "type": "transition",
+              "condition": {
+                "type": "expression",
+                "payload": "true"
+              },
+              "label": "always",
+              "generative": {
+                "label": "always",
+                "suggestion": {
+                  "condition": "true"
+                },
+                "properties": {
+                  "condition": true
+                }
+              },
+              "category": "Flow Logic",
+              "nodeId": "nd-306a507012",
+              "description": "",
+              "destination": {
+                "node": "nd-80ac4ff158"
+              },
+              "transitions": []
+            }
+          ],
+          "defaultTransition": {
+            "targetNodeId": null
+          },
+          "id": "nd-306a507012",
+          "name": "chevrolet_onix_2023_link_vela"
+        }
+      ],
+      "parentFolder": "root"
+    }
+  ],
+  "intents": [
+    {
+      "id": "int-cancel",
+      "name": "cancel",
+      "utterances_with_slots": [
+        "cancel",
+        "abort",
+        "abandon",
+        "i want to cancel",
+        "forget about this",
+        "leave",
+        "stop",
+        "quit",
+        "you know what, nevermind",
+        "forget it"
+      ]
+    },
+    {
+      "id": "int-no",
+      "name": "no",
+      "utterances_with_slots": [
+        "no",
+        "i don't want to",
+        "absolutely not",
+        "nah",
+        "nope",
+        "not really",
+        "not sure",
+        "no thanks"
+      ]
+    },
+    {
+      "id": "int-yes",
+      "name": "yes",
+      "utterances_with_slots": [
+        "yes",
+        "yeah",
+        "absolutely",
+        "i'd like to",
+        "sure ",
+        "hmm probably",
+        "yup",
+        "ok"
+      ]
+    }
+  ],
+  "list_entities": [],
+  "pattern_entities": [],
+  "actions": [],
+  "hooks": [
+    {
+      "id": "hk-99mudt",
+      "name": "track_iterations",
+      "hookType": "after_llmz_execution",
+      "content": "await actions[\"agi/improvement\"].trackIterations({\n  iterations: execution.iterations.map((iteration) => ({\n    uri: `workflow://${execution.location?.workflowId}/${execution.location?.nodeId}`,\n    conversationId: event.conversationId!,\n    executionId: execution.context.id,\n    iterationId: iteration.id,\n    eventId: event.messageId ?? event.id,\n    userId: event.userId!,\n    iteration: {\n      code: iteration.code ?? \"\",\n      ended_ts: iteration.ended_ts,\n      started_ts: iteration.started_ts,\n      messages: iteration.messages,\n      model: iteration.llm.model,\n      mutations: iteration.mutations,\n      status: iteration.status,\n    },\n  })),\n});\n",
+      "title": "Track LLMz Iterations",
+      "description": "This hook tracks iterations after LLMz execution",
+      "origin": {
+        "type": "integration",
+        "integration": {
+          "id": "agi/improvement",
+          "name": "agi/improvement",
+          "version": "1.0.2",
+          "title": "Improvement"
+        }
+      },
+      "transpiledCode": "var __defProp = Object.defineProperty;\nvar __name = (target, value) => __defProp(target, \"name\", { value, configurable: true });\nasync function __ROOT__() {\n  await actions[\"agi/improvement\"].trackIterations({\n    iterations: execution.iterations.map((iteration) => ({\n      uri: `workflow://${execution.location?.workflowId}/${execution.location?.nodeId}`,\n      conversationId: event.conversationId,\n      executionId: execution.context.id,\n      iterationId: iteration.id,\n      eventId: event.messageId ?? event.id,\n      userId: event.userId,\n      iteration: {\n        code: iteration.code ?? \"\",\n        ended_ts: iteration.ended_ts,\n        started_ts: iteration.started_ts,\n        messages: iteration.messages,\n        model: iteration.llm.model,\n        mutations: iteration.mutations,\n        status: iteration.status\n      }\n    }))\n  });\n  ;\n}\n__name(__ROOT__, \"__ROOT__\");\n; return await __ROOT__();"
+    },
+    {
+      "id": "hk-1q8lg5q",
+      "name": "inject_learnings",
+      "hookType": "before_llmz_execution",
+      "content": "async function runFindFeedback() {\n  const search = context.transcript.map((x) => `${x.role}: ${x.content}`).join(\"\\n\")\n  if (!search) {\n    // nothing to search for\n    return\n  }\n\n  const { items } = await actions[\"agi/improvement\"].findFeedback({\n    uri: `workflow://${context.location?.workflowId}/${context.location?.nodeId}`,\n    search,\n  });\n\n  if (!items.length) {\n    return\n  }\n\n  context.instructions += `\n\n## Learnings from Previous Experiences\n\n${items\n  .map(\n    (x, i) => `### Learning ${i + 1}\n${x.learning}\n`\n  )\n  .join(\"\\n\")}\n  `;\n}\n\nawait runFindFeedback()",
+      "title": "Provide Learnings to LLMz",
+      "description": "This hook injects learnings into LLMz before execution",
+      "origin": {
+        "type": "integration",
+        "integration": {
+          "id": "agi/improvement",
+          "name": "agi/improvement",
+          "version": "1.0.2",
+          "title": "Improvement"
+        }
+      },
+      "transpiledCode": "var __defProp = Object.defineProperty;\nvar __name = (target, value) => __defProp(target, \"name\", { value, configurable: true });\nasync function __ROOT__() {\n  async function runFindFeedback() {\n    const search = context.transcript.map((x) => `${x.role}: ${x.content}`).join(\"\\n\");\n    if (!search) {\n      return;\n    }\n    const { items } = await actions[\"agi/improvement\"].findFeedback({\n      uri: `workflow://${context.location?.workflowId}/${context.location?.nodeId}`,\n      search\n    });\n    if (!items.length) {\n      return;\n    }\n    context.instructions += `\n\n## Learnings from Previous Experiences\n\n${items.map(\n      (x, i) => `### Learning ${i + 1}\n${x.learning}\n`\n    ).join(\"\\n\")}\n  `;\n  }\n  __name(runFindFeedback, \"runFindFeedback\");\n  await runFindFeedback();\n}\n__name(__ROOT__, \"__ROOT__\");\n; return await __ROOT__();"
+    }
+  ],
+  "qnas": [],
+  "folders": [],
+  "agents": {
+    "SummaryAgent": {
+      "enabled": false,
+      "config": {
+        "summaryMaxTokens": 100,
+        "transcriptMaxLines": 10,
+        "model": "fast-model"
+      }
+    },
+    "TranslatorAgent": {
+      "config": {
+        "detectLanguage": true
+      }
+    },
+    "KnowledgeAgent": {
+      "enabled": false,
+      "config": {
+        "answerManually": true,
+        "context": "Summary of the conversation:\n\"\"\"\n{{conversation.SummaryAgent.summary}}\n\"\"\"\n\nTranscript:\n\"\"\"\n{{conversation.SummaryAgent.transcript}}\n\"\"\"",
+        "bestModel": "gpt-4-turbo",
+        "fastestModel": "fast-model",
+        "questionModel": "fast-model",
+        "strategy": "hybrid",
+        "chunks": 50
+      }
+    },
+    "PersonalityAgent": {
+      "config": {
+        "personality": ""
+      }
+    },
+    "VisionAgent": {
+      "enabled": true,
+      "config": {
+        "extractionEnabled": true
+      }
+    }
+  },
+  "tables": {
+    "table_01KP71K8Z6GZA4DHWA47967C7K": {
+      "id": "table_01KP71K8Z6GZA4DHWA47967C7K",
+      "name": "Int_Improvement_Feedback_Table",
+      "factor": 30,
+      "frozen": true,
+      "keyColumn": null,
+      "tags": {
+        "origin": "integration",
+        "purpose": "improvement",
+        "version": "Nov-2024",
+        "integration": "Int_Improvement",
+        "x-studio-icon": "lucide://atom",
+        "x-studio-color": "green",
+        "x-studio-title": "Feedback",
+        "x-studio-readonly": "true",
+        "x-studio-description": "Table to store acquired feedback on iterations for active learning"
+      },
+      "createdAt": "2026-04-14T22:25:38.279Z",
+      "updatedAt": "2026-04-14T22:25:38.279Z",
+      "createdBy": "integration:agi/improvement",
+      "updatedBy": null,
+      "isComputeEnabled": true,
+      "unavailableColumns": [],
+      "schema": {
+        "type": "object",
+        "x-zui": {},
+        "required": [
+          "uri",
+          "iterationId",
+          "before",
+          "feedback",
+          "after"
+        ],
+        "properties": {
+          "uri": {
+            "type": "string",
+            "x-zui": {
+              "index": 0,
+              "searchable": false
+            },
+            "maxLength": 250,
+            "minLength": 1
+          },
+          "after": {
+            "type": "string",
+            "x-zui": {
+              "index": 4,
+              "searchable": true
+            },
+            "minLength": 1
+          },
+          "before": {
+            "type": "string",
+            "x-zui": {
+              "index": 2,
+              "searchable": true
+            },
+            "minLength": 1
+          },
+          "feedback": {
+            "type": "string",
+            "x-zui": {
+              "index": 3,
+              "searchable": false
+            },
+            "minLength": 1
+          },
+          "learning": {
+            "type": "string",
+            "x-zui": {
+              "index": 5,
+              "computed": {
+                "model": "fast-model",
+                "action": "ai",
+                "prompt": "What would you tell your future self to improve next time?\nCode Before:\n\n```\n{{before}}\n```\n\nFeedback: \"{{feedback}}\"\n\nCode After:\n\n```\n{{after}}\n```\n\nFor the learning, it must be standalone, concise but also accurately depict the situation and feedback you were given.\n\nTry to follow one of the below structures:\n\n<example>\nIn [situation X], I learned that I should [use tool `X` rather than `Y` because ...]\n</example>\n\n<example>\nWhen trying to [...], I should use [tool X, tool Y or tool Z] like this:\n\n\\`\\`\\`\n// snippet to explain a drastic code change between before and after, or a non-obvious code snippet\n\\`\\`\\`\n</example>\n\n<example>\nWhenever [Y] happens, I should avoid [...] and instead [...].\n</example>\n\nKeep it concise. Do not refer to \"this situation\" or to the feedback. Both have been provided by an expert reviewing the conversation, NOT the actual user. So you must embed the content from the above inside your learning so it is standalone.\n",
+                "dependencies": [
+                  "before",
+                  "feedback",
+                  "after"
+                ]
+              },
+              "searchable": true
+            },
+            "default": null,
+            "nullable": true,
+            "minLength": 1
+          },
+          "iterationId": {
+            "type": "string",
+            "x-zui": {
+              "index": 1,
+              "searchable": false
+            },
+            "maxLength": 100,
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      },
+      "parentFolder": "root",
+      "selectors": []
+    },
+    "table_01KP71K91E38MEVCMQ9Z0BE5KN": {
+      "id": "table_01KP71K91E38MEVCMQ9Z0BE5KN",
+      "name": "RouterAgentTable",
+      "factor": 1,
+      "frozen": false,
+      "keyColumn": null,
+      "tags": {
+        "role": "agents/router/intents",
+        "agent": "RouterAgent",
+        "system": "true"
+      },
+      "createdAt": "2026-04-14T22:25:38.351Z",
+      "updatedAt": "2026-04-14T22:25:38.351Z",
+      "createdBy": "user:e47fbf2d-7313-46ba-944c-264530a6b674",
+      "updatedBy": null,
+      "isComputeEnabled": false,
+      "unavailableColumns": [],
+      "schema": {
+        "type": "object",
+        "x-zui": {},
+        "required": [
+          "phrase",
+          "intentId",
+          "phraseId"
+        ],
+        "properties": {
+          "phrase": {
+            "type": "string",
+            "x-zui": {
+              "index": 0,
+              "searchable": true
+            }
+          },
+          "intentId": {
+            "type": "string",
+            "x-zui": {
+              "index": 1,
+              "searchable": true
+            }
+          },
+          "phraseId": {
+            "type": "string",
+            "x-zui": {
+              "index": 2,
+              "searchable": true
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "parentFolder": "root",
+      "selectors": []
+    }
+  },
+  "schemas": [],
+  "versions": [
+    {
+      "name": "14 Apr 26 09:12",
+      "id": "version_01KP77PN4J6M8FA4MKBMKXJY1B"
+    },
+    {
+      "name": "14 Apr 26 08:38",
+      "id": "version_01KP75RK1NWMAJNZKQK5FX7HQN"
+    }
+  ],
+  "revision": 552,
+  "revisionMetadata": {
+    "lastRevisionCheckAt": "2026-05-09T12:04:35.680Z",
+    "lastRevisionId": -1,
+    "multiplayerStatus": "connected",
+    "multiplayerTraces": [
+      "2026-05-09T12:04:29.702Z: Initializing Client... - {\"initializing\":false,\"initialized\":false}",
+      "2026-05-09T12:04:29.717Z: Connection State: initialized -> connecting (ok)",
+      "2026-05-09T12:04:30.664Z (BpOLRvOo1N): Connection State: connecting -> connected (ok)",
+      "2026-05-09T12:04:30.890Z (BpOLRvOo1N): Multiplayer session initialized!",
+      "2026-05-09T12:04:31.017Z (BpOLRvOo1N): Player entered channel - {\"sessionId\":\"sess_01KR69ZR22Y1J7ZVEBVCZHE8TY\",\"connectionId\":\"BpOLRvOo1N\",\"joinedAt\":\"2026-05-09T12:04:30.891Z\",\"email\":\"varruda170@gmail.com\",\"displayName\":\"Arruda\",\"color\":\"var(--orange-8)\",\"workspaceUserId\":\"e47fbf2d-7313-46ba-944c-264530a6b674\",\"lastActiveAt\":\"Sat, 09 May 2026 12:04:29 GMT\",\"connectedAt\":\"Sat, 09 May 2026 12:04:29 GMT\",\"sections\":[]}",
+      "2026-05-09T12:04:31.018Z (BpOLRvOo1N): varruda170@gmail.com was elected as master - \"sess_01KR69ZR22Y1J7ZVEBVCZHE8TY\""
+    ],
+    "players": [
+      "varruda170@gmail.com / sess_01KR69ZR22Y1J7ZVEBVCZHE8TY / Sat, 09 May 2026 12:04:29 GMT /  Sat, 09 May 2026 12:04:29 GMT"
+    ],
+    "savedAt": "2026-05-09T12:04:35.681Z",
+    "savedBy": "varruda170@gmail.com",
+    "sessionId": "sess_01KR69ZR22Y1J7ZVEBVCZHE8TY"
+  },
+  "identity": {
+    "name": "Assistente Peças Automotivas",
+    "manual_instructions": "",
+    "icon": {
+      "type": "emoji",
+      "emoji": "🤖 ",
+      "background_color": "oklch(var(--color-orange-500))"
+    },
+    "ai_summary": {
+      "value": "Chatbot named sparkling-eland provides concise information.",
+      "input_hash": "7j8s9",
+      "generated_at": "2025-02-26T18:41:46.789Z",
+      "version": "1.0.0"
+    }
+  }
+}

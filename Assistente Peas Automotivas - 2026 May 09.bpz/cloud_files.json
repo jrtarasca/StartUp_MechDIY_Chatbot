@@ -1,0 +1,81 @@
+[
+  {
+    "id": "file_01KP760KHMFS74CCYBJJN50GWB",
+    "accessPolicies": [
+      "public_content"
+    ],
+    "contentType": "image/png",
+    "size": 24458,
+    "status": "upload_completed",
+    "tags": {
+      "source": "integration",
+      "integration": "webchat"
+    },
+    "key": "bot-6a995e96-17d0-4784-933c-f90a115db6c9-avatar-pRBW17",
+    "index": false,
+    "updatedAt": "2026-04-14T23:42:49.387Z"
+  },
+  {
+    "id": "file_01KP75NWZ3HVFEM4V765HQ6666",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 18587,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user_01KP75NJ0P055NAF704FRNJCY8",
+      "eventId": "7d350cc0-203d-458c-9835-8545974cb01e",
+      "purpose": "iteration",
+      "executionId": "llmz_01KP75NSM0R7BJVYVFEK1N0K8A",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01KP75NT260KYCCMATSGWBSEX8_1",
+      "conversationId": "conv_01KP75NJP42D3QCMXS06QFKJFP"
+    },
+    "key": "improvements/iterations/llmz_01KP75NT260KYCCMATSGWBSEX8_1.json",
+    "index": false,
+    "updatedAt": "2026-04-14T23:36:58.586Z"
+  },
+  {
+    "id": "file_01KP71P45WE2VZY85DMCQTK9WJ",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 18619,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user_01KP71NZ5PYJNPRJZ8SNKGV0CA",
+      "eventId": "913de47b-dcba-4c75-a5e1-812ea36e7a37",
+      "purpose": "iteration",
+      "executionId": "llmz_01KP71P17XBG46KKDMMA8FD409",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01KP71P1KD63JF5WCY6EWBMX8N_1",
+      "conversationId": "conv_01KP71NZ5PYJNPRJZ8SNKGV0CB"
+    },
+    "key": "improvements/iterations/llmz_01KP71P1KD63JF5WCY6EWBMX8N_1.json",
+    "index": false,
+    "updatedAt": "2026-04-14T22:27:11.667Z"
+  },
+  {
+    "id": "file_01KP71K8JC3HS9ZDZ4Y6TY5DW7",
+    "accessPolicies": [],
+    "contentType": "application/json; charset=utf-8",
+    "size": 19275,
+    "status": "upload_completed",
+    "tags": {
+      "uri": "workflow://wf-main/nd-54aa0c19de",
+      "origin": "integration",
+      "userId": "user-2",
+      "eventId": "none",
+      "purpose": "iteration",
+      "executionId": "llmz_01JYMEADCSA8VBMS18BDVP20V1",
+      "integration": "Int_Improvement",
+      "iterationId": "llmz_01JYMEADCSA8VBMS18BDVP20V1_1",
+      "conversationId": "convo-1"
+    },
+    "key": "improvements/iterations/llmz_01JYMEADCSA8VBMS18BDVP20V1_1.json",
+    "index": false,
+    "updatedAt": "2026-04-14T22:25:37.860Z"
+  }
+]
